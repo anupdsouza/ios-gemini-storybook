@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var currentItemID: UUID?
+    @State private var currentIndex: Int = 0
     private let images = ["poster1","poster2","poster3","poster4","poster5","poster6"]
     
     var body: some View {
@@ -39,13 +40,18 @@ struct ContentView: View {
             
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 0) {
-                    ForEach(images, id: \.self) { image in
-                        Image(image)
+                    ForEach(0..<images.count, id: \.self) { index in
+                        Image(images[index])
                             .resizable()
                             .scaledToFill()
                             .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             .padding(.horizontal, 25)
+                            .id(index)
                             .containerRelativeFrame(.horizontal)
+                            .scrollTransition { content, phase in
+                                content
+                                    .scaleEffect(phase.isIdentity ? 1 : 0.8)
+                            }
                     }
                 }
                 .scrollTargetLayout()
@@ -55,7 +61,7 @@ struct ContentView: View {
             .scrollIndicators(.never)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: $currentItemID)
-            .safeAreaPadding(.horizontal, 70)
+            .safeAreaPadding(.horizontal, 80)
             .safeAreaPadding(.vertical, 10)
             
             Text("Visiting Mr. Freeze")
