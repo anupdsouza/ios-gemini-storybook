@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var currentItemID: UUID?
-    @State private var hasStories = false
+    @State private var hasStories = true
     private let images = ["poster1","poster2","poster3","poster4","poster5","poster6"]
     
     var body: some View {
@@ -94,9 +94,6 @@ struct ContentView: View {
                 .safeAreaPadding(.horizontal, 40)
                 .scrollTargetBehavior(.viewAligned)
                 .scrollPosition(id: $currentItemID)
-                .onChange(of: currentItemID) { _, new in
-                    print(new)
-                }
                 
                 Text("Visiting Mr. Freeze")
                     .font(.title).bold()
@@ -104,19 +101,29 @@ struct ContentView: View {
                 
                 // MARK: Bottom components
                 Group {
-                    HStack(spacing: 30) {
-                        Button(action: {}, label: {
-                            Image(systemName: "arrow.down.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                        })
-                        Button(action: {}, label: {
-                            Image(systemName: "ellipsis.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                        })
+                    HStack(spacing: 20) {
+
+                        Group {
+                            Button(action: {}, label: {
+                                Image(systemName: "arrow.down")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .padding(4)
+                            })
+
+                            Button(action: {}, label: {
+                                Image(systemName: "ellipsis")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .padding(4)
+                            })
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.circle)
+                        .tint(.secondary)
+                        .foregroundStyle(.white)
                     }
                     
                     Button(action: {}, label: {
