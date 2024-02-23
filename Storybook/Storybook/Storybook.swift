@@ -8,7 +8,7 @@
 import Foundation
 
 struct Storybook: Identifiable, Equatable {
-    private(set) var id: UUID = .init()
+    private(set) var id = UUID().uuidString
     var title: String
     var coverImage: String
     var story: [String]

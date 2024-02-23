@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var currentItemID: UUID?
     @State private var hasStories = true
+    @State private var showPromptAlert = false
+    @State private var promptText = ""
     private let images = ["poster1","poster2","poster3","poster4","poster5","poster6"]
     
     var body: some View {
@@ -126,7 +128,9 @@ struct ContentView: View {
                         .foregroundStyle(.white)
                     }
                     
-                    Button(action: {}, label: {
+                    Button(action: {
+                        showPromptAlert = true
+                    }, label: {
                         HStack(spacing: 10) {
                             Image(systemName: "plus")
                                 .resizable()
@@ -141,6 +145,17 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.capsule)
                     .padding()
+                    .alert("Enter a prompt for the story", isPresented: $showPromptAlert) {
+                        TextField("Prompt", text: $promptText)
+                        Button("Submit", action: {
+                            print(promptText)
+                            promptText = ""
+                        })
+                        Button("Cancel", role: .cancel, action: { promptText = "" })
+                    } message: {
+                        Text("Include as much detail as possible")
+                    }
+
                 }
                 .tint(.white)
 
