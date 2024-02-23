@@ -47,6 +47,10 @@ struct ContentView: View {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 260, height: 380)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(.white, lineWidth: 0.5)
+                            }
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             .id(index)
                             .containerRelativeFrame(.horizontal)
