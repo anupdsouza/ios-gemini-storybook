@@ -13,7 +13,7 @@ struct StorybookItemView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack {
-                Image(item!.coverImage)
+                Image(item!.coverImage ?? "")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 300, height: 200)

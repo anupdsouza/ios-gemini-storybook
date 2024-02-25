@@ -6,16 +6,13 @@
 //
 
 import SwiftUI
-import GoogleGenerativeAI
 
 struct ContentView: View {
     @State private var currentItemID: UUID?
     @State private var hasStories = true
     @State private var showPromptAlert = false
-    @State private var fetchingStory = false
-    @State private var fetchedStory = false
     @State private var promptText = ""
-    private let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
+    @State private var library = Library()    
 
     private let images = ["poster1","poster2","poster3","poster4","poster5","poster6"]
     
@@ -152,10 +149,18 @@ struct ContentView: View {
                     .padding()
                     .alert("Enter a prompt for the story", isPresented: $showPromptAlert) {
                         TextField("Prompt", text: $promptText)
+//                        TextEditor(text: $promptText)
+//                            .scrollContentBackground(.hidden)
+//                            .padding()
+//                            .backgroundStyle(.secondary)
+//                            .clipShape(RoundedRectangle(cornerRadius: 20))
+//                            .foregroundStyle(.white)
+//                            .tint(.white)
+                        
                         Button("Submit", action: {
                             print(promptText)
                             Task {
-                                await fetchStory()
+                                await library.fetchStory(promptText)
                             }
                         })
                         Button("Cancel", role: .cancel, action: { promptText = "" })
@@ -172,31 +177,6 @@ struct ContentView: View {
         .background {
             Color.black
                 .edgesIgnoringSafeArea(.all)
-        }
-    }
-    
-    private func fetchStory() async {
-        fetchingStory = true
-        fetchedStory = false
-        
-        do {
-            let response = try await model.generateContent(promptText)
-            guard let text = response.text,
-                  let data = text.data(using: .utf8) else {
-                fetchingStory = false
-                return
-            }
-            print(text)
-            
-            await MainActor.run {
-                withAnimation {
-                    fetchedStory = true
-                }
-            }
-        }
-        catch {
-            fetchingStory = false
-            print(error.localizedDescription)
         }
     }
 }
