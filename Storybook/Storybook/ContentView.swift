@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var currentItemID: UUID?
-    @State private var hasStories = true
+    @State private var currentItemID: Int?
     @State private var showPromptAlert = false
     @State private var promptText = ""
     @State private var library = Library()    
@@ -19,13 +18,15 @@ struct ContentView: View {
     var body: some View {
         VStack {
             
-            if hasStories == false {
+            if library.books.isEmpty {
                 ContentUnavailableView(label: {
                     Label("No Stories", systemImage: "doc.richtext")
                 }, description: {
                     Text("Click the button below to create one!")
                 }, actions: {
-                    Button(action: {}, label: {
+                    Button(action: {
+                        showPromptAlert = true
+                    }, label: {
                         HStack(spacing: 10) {
                             Image(systemName: "plus")
                                 .resizable()
@@ -40,6 +41,19 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.capsule)
                     .padding()
+                    .alert("Enter a prompt for the story", isPresented: $showPromptAlert) {
+                        TextField("Prompt", text: $promptText)
+                        
+                        Button("Submit", action: {
+                            print(promptText)
+                            Task {
+                                await library.fetchStory(promptText)
+                            }
+                        })
+                        Button("Cancel", role: .cancel, action: { promptText = "" })
+                    } message: {
+                        Text("Include as much detail as possible")
+                    }
                 })
                 .foregroundStyle(.white)
                 .tint(.white)
@@ -73,8 +87,10 @@ struct ContentView: View {
                 // MARK: Carousal
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 0) {
-                        ForEach(0..<images.count, id: \.self) { index in
-                            Image(images[index])
+                        
+                        ForEach(0..<library.books.count, id: \.self) { index in
+                            let book = library.books[index]
+                            Image(uiImage: book.images[index])
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 260, height: 380)
@@ -98,15 +114,18 @@ struct ContentView: View {
                 .safeAreaPadding(.horizontal, 40)
                 .scrollTargetBehavior(.viewAligned)
                 .scrollPosition(id: $currentItemID)
+                .onChange(of: currentItemID) { oldValue, newValue in
+                    print(newValue ?? "")
+                }
                 
-                Text("Visiting Mr. Freeze")
+                Text(library.books[currentItemID ?? 0].title)
                     .font(.title).bold()
                     .foregroundStyle(.white)
                 
                 // MARK: Bottom components
                 Group {
                     HStack(spacing: 20) {
-
+                        
                         Group {
                             Button(action: {}, label: {
                                 Image(systemName: "arrow.down")
@@ -115,7 +134,7 @@ struct ContentView: View {
                                     .frame(width: 20, height: 20)
                                     .padding(4)
                             })
-
+                            
                             Button(action: {}, label: {
                                 Image(systemName: "ellipsis")
                                     .resizable()
@@ -149,16 +168,10 @@ struct ContentView: View {
                     .padding()
                     .alert("Enter a prompt for the story", isPresented: $showPromptAlert) {
                         TextField("Prompt", text: $promptText)
-//                        TextEditor(text: $promptText)
-//                            .scrollContentBackground(.hidden)
-//                            .padding()
-//                            .backgroundStyle(.secondary)
-//                            .clipShape(RoundedRectangle(cornerRadius: 20))
-//                            .foregroundStyle(.white)
-//                            .tint(.white)
                         
                         Button("Submit", action: {
                             print(promptText)
+                            showPromptAlert = false
                             Task {
                                 await library.fetchStory(promptText)
                             }
@@ -167,10 +180,10 @@ struct ContentView: View {
                     } message: {
                         Text("Include as much detail as possible")
                     }
-
+                    
                 }
                 .tint(.white)
-
+                
                 Spacer()
             }
         }
