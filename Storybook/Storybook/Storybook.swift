@@ -15,7 +15,7 @@ struct Storybook: Identifiable, Equatable {
     var coverImage: String?
     var story: [String]
     var favorite: Bool = false
-    var images: [UIImage]? = []
+    var images: [UIImage] = []
 }
 
 struct Story: Decodable {

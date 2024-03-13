@@ -60,7 +60,7 @@ import OpenAIKit
             
             do {
                 let images = try await generateImages(for: story.imagePrompts, story: story.story.joined(separator: " "))
-                storyBook.images?.append(contentsOf: images)
+                storyBook.images.append(contentsOf: images)
                 books.append(storyBook)
                 fetchedImages?.append(contentsOf: images)
             } catch {
