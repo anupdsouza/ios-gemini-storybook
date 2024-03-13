@@ -14,8 +14,8 @@ import OpenAIKit
     private(set) var books = [Storybook]()
     private var fetchingStory = false
     private var fetchedStory = false
-    private let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
-    private let openAi = OpenAI(Configuration(organizationId: "Personal", apiKey: ""))
+    private let geminiModel = GenerativeModel(name: "gemini-pro", apiKey: APIKey.gemini)
+    private let openAi = OpenAI(Configuration(organizationId: APIKey.openAIOrgId, apiKey: APIKey.openAIKey))
     private(set) var fetchedImages: [UIImage]? = []
 
     func fetchStory(_ promptText: String) async {
@@ -46,7 +46,7 @@ import OpenAIKit
             }
           """
 
-            let response = try await model.generateContent(prompt)
+            let response = try await geminiModel.generateContent(prompt)
             print(response.text ?? "")
             guard let text = response.text?.replacingOccurrences(of: "```", with: "").replacingOccurrences(of: "json", with: ""),
                   let data = text.data(using: .utf8) else {
