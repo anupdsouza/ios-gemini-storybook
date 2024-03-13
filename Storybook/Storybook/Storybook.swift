@@ -6,18 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
-struct Storybook: Identifiable, Decodable, Equatable {
+struct Storybook: Identifiable, Equatable {
     private(set) var id = UUID().uuidString
     var title: String
     var moral: String
     var coverImage: String?
     var story: [String]
     var favorite: Bool = false
+    var images: [UIImage]? = []
 }
 
 struct Story: Decodable {
     var title: String
     var moral: String
     var story: [String]
+    var imagePrompts: [String]
 }
