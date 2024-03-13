@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E48829402B8B726600C9D2C5 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = E488293F2B8B726600C9D2C5 /* OpenAIKit */; };
 		E4CAFEDF2B88C6B8009B288E /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CAFEDE2B88C6B8009B288E /* Library.swift */; };
 		E4CAFEE22B88CD9D009B288E /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = E4CAFEE12B88CD9D009B288E /* GoogleGenerativeAI */; };
 		E4CAFEE62B88CDFD009B288E /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4CAFEE42B88CDFD009B288E /* GenerativeAI-Info.plist */; };
@@ -38,6 +39,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4CAFEE22B88CD9D009B288E /* GoogleGenerativeAI in Frameworks */,
+				E48829402B8B726600C9D2C5 /* OpenAIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +112,7 @@
 			name = Storybook;
 			packageProductDependencies = (
 				E4CAFEE12B88CD9D009B288E /* GoogleGenerativeAI */,
+				E488293F2B8B726600C9D2C5 /* OpenAIKit */,
 			);
 			productName = Storybook;
 			productReference = E4FF12462B860E7500E5D098 /* Storybook.app */;
@@ -141,6 +144,7 @@
 			mainGroup = E4FF123D2B860E7500E5D098;
 			packageReferences = (
 				E4CAFEE02B88CD9D009B288E /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				E488293E2B8B726500C9D2C5 /* XCRemoteSwiftPackageReference "OpenAIKit" */,
 			);
 			productRefGroup = E4FF12472B860E7500E5D098 /* Products */;
 			projectDirPath = "";
@@ -380,6 +384,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E488293E2B8B726500C9D2C5 /* XCRemoteSwiftPackageReference "OpenAIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OpenDive/OpenAIKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 		E4CAFEE02B88CD9D009B288E /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/generative-ai-swift";
@@ -391,6 +403,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E488293F2B8B726600C9D2C5 /* OpenAIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E488293E2B8B726500C9D2C5 /* XCRemoteSwiftPackageReference "OpenAIKit" */;
+			productName = OpenAIKit;
+		};
 		E4CAFEE12B88CD9D009B288E /* GoogleGenerativeAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4CAFEE02B88CD9D009B288E /* XCRemoteSwiftPackageReference "generative-ai-swift" */;

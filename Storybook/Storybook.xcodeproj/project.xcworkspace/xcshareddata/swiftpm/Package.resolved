@@ -8,6 +8,15 @@
         "revision" : "e2cebcd90645a3a94c0c823696e510a176bc384a",
         "version" : "0.4.8"
       }
+    },
+    {
+      "identity" : "openaikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OpenDive/OpenAIKit.git",
+      "state" : {
+        "revision" : "1ae438e665433273474d330a74241a1c55742a79",
+        "version" : "2.0.1"
+      }
     }
   ],
   "version" : 2
