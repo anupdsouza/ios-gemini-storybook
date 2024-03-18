@@ -11,7 +11,7 @@ import SwiftUI
 struct StorybookApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LibraryView()
         }
     }
 }
