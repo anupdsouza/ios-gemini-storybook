@@ -13,7 +13,7 @@ struct Storybook: Identifiable, Equatable {
     var title: String
     var moral: String
     var story: [String]
-    var images: [UIImage] = []
+    var images = [UIImage]()
 }
 
 struct Story: Decodable {

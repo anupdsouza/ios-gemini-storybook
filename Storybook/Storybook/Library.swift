@@ -14,7 +14,7 @@ import OpenAIKit
     private(set) var books = [Storybook]()
     private(set) var fetchingStory = false
     var errorFetchingStory = false
-    private let geminiModel = GenerativeModel(name: "gemini-pro", apiKey: APIKey.gemini)
+    private let geminiModel = GenerativeModel(name: "gemini-1.0-pro", apiKey: APIKey.gemini)
     private let openAi = OpenAI(Configuration(organizationId: APIKey.openAIOrgId, apiKey: APIKey.openAIKey))
 
     func fetchStory(_ promptText: String) async {
