@@ -11,8 +11,6 @@ struct LibraryView: View {
     @State private var showPromptAlert = false
     @State private var promptText = ""
     @State private var library = Library()    
-
-    private let images = ["poster1","poster2","poster3","poster4","poster5","poster6"]
     
     var body: some View {
         NavigationStack {
